@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common';
+require('dotenv').config();
+
 
 @Injectable()
 export class AppService {
@@ -8,7 +10,7 @@ export class AppService {
 
   async payment(amount: number) {
     const stripe = require('stripe')(
-      'sk_test_51Kz13ZIAcelJQbvPHMzC2uXMEwZHLwBiPCU0IK962ksZlQQjfKOlPcu4w69FwK98UCvqTiKJM6XMiQVoDySE7PeK00B5jXImNa',
+      process.env.STRIPE_SECRET_KEY,
     );
 
     // const PaymentMethod = stripe.PaymentMethod.create({
@@ -26,11 +28,10 @@ export class AppService {
       {
         amount: amount,
         currency: 'eur',
-        // payment_method:'pm_card_visa',
         source: 'tok_amex'
       },
       {
-        stripeAccount: 'acct_1Kz13ZIAcelJQbvP',
+        stripeAccount: process.env.STRIPE_ACCOUNT_ID,
       },
     );
     return paymentIntent;
