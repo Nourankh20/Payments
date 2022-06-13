@@ -1,4 +1,4 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Post, Body,Param } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -10,8 +10,8 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Post('/pay')
-  payment(){
-    return this.appService.payment(3000);
+  @Post('/pay/:amount')
+  payment(@Param("amount") amount:number){
+    return this.appService.payment(amount);
   }
 }

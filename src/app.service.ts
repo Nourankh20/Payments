@@ -13,17 +13,7 @@ export class AppService {
       process.env.STRIPE_SECRET_KEY,
     );
 
-    // const PaymentMethod = stripe.PaymentMethod.create({
-    //   type: 'card',
-    //   card: {
-    //     number: '4242424242424242',
-    //     exp_month: 12,
-    //     exp_year: 2023,
-    //     cvc: '314',
-    //   },
-
-    // });
-
+   
     const paymentIntent = await stripe.charges.create(
       {
         amount: amount,
@@ -34,6 +24,6 @@ export class AppService {
         stripeAccount: process.env.STRIPE_ACCOUNT_ID,
       },
     );
-    return paymentIntent;
+    return paymentIntent.outcome.seller_message;
   }
 }
